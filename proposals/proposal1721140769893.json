@@ -1,0 +1,99 @@
+{
+  "refactorings": {
+    "spoon-smpl/src/main/java/spoon/smpl/CFGModel.java": [
+      {
+        "fromLine": 205,
+        "toLine": 222,
+        "oldContent": "\tprivate SmPLMethodCFG cfg;\n\n\t/**\n\t * The set of state IDs.\n\t */\n\tprivate List<Integer> states;\n\n\t/**\n\t * The set of immediate successors.\n\t */\n\tprivate Map<Integer, List<Integer>> successors;\n\n\t/**\n\t * The set of state labels.\n\t */\n\tprivate Map<Integer, List<Label>> labels;\n}\n",
+        "newContent": "\tprivate StateInfo stateInfo;\n}\n"
+      }
+    ],
+    "spoon-smpl/src/main/java/spoon/smpl/MethodHeaderModel.java": [
+      {
+        "fromLine": 362,
+        "toLine": 382,
+        "oldContent": "\t/**\n\t * States of the CTL model.\n\t */\n\tprivate List<Integer> states;\n\n\t/**\n\t * Successors of the CTL model.\n\t */\n\tprivate Map<Integer, List<Integer>> successors;\n\n\t/**\n\t * Labels of the CTL model.\n\t */\n\tprivate Map<Integer, List<Label>> labels;\n\n\t/**\n\t * Name of executable in wrapper invocation for encoding method return type.\n\t */\n\tprivate static final String methodReturnTypeElementName = \"__MethodHeaderReturnType__\";",
+        "newContent": "\tprivate StateInfo stateInfo;\n\n\t/**\n\t * Name of executable in wrapper invocation for encoding method return type.\n\t */\n\tprivate static final String methodReturnTypeElementName = \"__MethodHeaderReturnType__\";"
+      }
+    ],
+    "spoon-smpl/src/test/java/spoon/smpl/ModelCheckerTest.java": [
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\tprivate static class ModelBuilder implements Model {\n\t\tpublic List<Integer> states;\n\t\tpublic Map<Integer, List<Integer>> successors;\n\t\tpublic Map<Integer, List<Label>> labels;\n\n\t\tpublic ModelBuilder() {\n\t\t\tstates = new ArrayList<Integer>();\n\t\t\tsuccessors = new HashMap<Integer, List<Integer>>();\n\t\t\tlabels = a new HashMap<Integer, List<Label>>();",
+        "newContent": "\tprivate static class ModelBuilder implements Model {\n\t\tprivate StateInfo stateInfo;\n\n\t\tpublic ModelBuilder() {\n\t\t\tstateInfo = new StateInfo();"
+      },
+      {
+        "fromLine": 126,
+        "toLine": 136,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 149,
+        "toLine": 159,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 175,
+        "toLine": 185,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 204,
+        "toLine": 214,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 237,
+        "toLine": 247,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 270,
+        "toLine": 280,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 297,
+        "toLine": 307,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 324,
+        "toLine": 334,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 349,
+        "toLine": 359,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 440,
+        "toLine": 451,
+        "oldContent": "",
+        "newContent": ""
+      },
+      {
+        "fromLine": 468,
+        "toLine": 478,
+        "oldContent": "",
+        "newContent": ""
+      }
+    ]
+  },
+  "extractedClasses": {
+    "StateInfo.java": "public class StateInfo {\n\n\t/**\n\t * The set of state IDs.\n\t */\n\tpublic List<Integer> states;\n\n\t/**\n\t * The set of immediate successors.\n\t */\n\tpublic Map<Integer, List<Integer>> successors;\n\n\t/**\n\t * The set of state labels.\n\t */\n\tpublic Map<Integer, List<Label>> labels;\n\n\tpublic StateInfo() {\n\t\tstates = new ArrayList<Integer>();\n\t\tsuccessors = new HashMap<Integer, List<Integer>>();\n\t\tlabels = new HashMap<Integer, List<Label>>();\n\t}\n}\n"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T14:39:29.890Z"
+}

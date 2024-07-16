@@ -1,0 +1,117 @@
+{
+  "refactorings": {
+    "spoon-smpl/src/main/java/spoon/smpl/CFGModel.java": [
+      {
+        "fromLine": 46,
+        "toLine": 118,
+        "oldContent": "\tpublic CFGModel(SmPLMethodCFG cfg) {...}",
+        "newContent": "\tpublic CFGModel(SmPLMethodCFG cfg) {\n\t\tthis.cfg = cfg;\n\t\tmodelData = new ModelData<>();\n\n\t\t// Previously existing code refactored to use modelData\n\t\t...\n\t}"
+      },
+      {
+        "fromLine": 123,
+        "toLine": 177,
+        "oldContent": "\tpublic List<Integer> getStates() {...}\n\t\tpublic List<Integer> getSuccessors(int state) {...}\n\t\tpublic List<Label> getLabels(int state) {...}\n\t\tpublic String toString() {...}",
+        "newContent": "\tpublic List<Integer> getStates() {\n\t\treturn modelData.getStates();\n\t}\n\n\tpublic List<Integer> getSuccessors(int state) {\n\t\treturn modelData.getSuccessors(state);\n\t}\n\n\tpublic List<Label> getLabels(int state) {\n\t\treturn modelData.getLabels(state);\n\t}\n\n\tpublic String toString() {...}"
+      },
+      {
+        "fromLine": 205,
+        "toLine": 222,
+        "oldContent": "\tprivate SmPLMethodCFG cfg;\n\tprivate List<Integer> states;\n\tprivate Map<Integer, List<Integer>> successors;\n\tprivate Map<Integer, List<Label>> labels;",
+        "newContent": "\tprivate SmPLMethodCFG cfg;\n\tprivate ModelData<Integer, Label> modelData;"
+      }
+    ],
+    "spoon-smpl/src/main/java/spoon/smpl/MethodHeaderModel.java": [
+      {
+        "fromLine": 80,
+        "toLine": 147,
+        "oldContent": "\tpublic MethodHeaderModel(CtExecutable<?> ctExecutable) {...}\n\tpublic List<Integer> getStates() {...}\n\tpublic List<Integer> getSuccessors(int state) {...}\n\tpublic List<Label> getLabels(int state) {...}\n\tpublic String toString() {...}",
+        "newContent": "\tpublic MethodHeaderModel(CtExecutable<?> ctExecutable) {\n\t\t// Previously existing code refactored to use modelData\n\t\t...\n\t}\n\n\t@Override\n\tpublic List<Integer> getStates() {\n\t\treturn modelData.getStates();\n\t}\n\n\t@Override\n\tpublic List<Integer> getSuccessors(int state) {\n\t\treturn modelData.getSuccessors(state);\n\t}\n\n\t@Override\n\tpublic List<Label> getLabels(int state) {\n\t\treturn modelData.getLabels(state);\n\t}\n\n\t@Override\n\tpublic String toString() {...}"
+      },
+      {
+        "fromLine": 362,
+        "toLine": 382,
+        "oldContent": "\tprivate List<Integer> states;\n\tprivate Map<Integer, List<Integer>> successors;\n\tprivate Map<Integer, List<Label>> labels;\n\tprivate static final String methodReturnTypeElementName = \"__MethodHeaderReturnType__\";",
+        "newContent": "\tprivate ModelData<Integer, Label> modelData;\n\tprivate static final String methodReturnTypeElementName = \"__MethodHeaderReturnType__\";"
+      }
+    ],
+    "spoon-smpl/src/test/java/spoon/smpl/ModelCheckerTest.java": [
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "private static class ModelBuilder implements Model {...}",
+        "newContent": "private static class ModelBuilder implements Model {\n\t\tModelData<Integer, Label> modelData;\n\t\t...\n\t}"
+      },
+      {
+        "fromLine": 126,
+        "toLine": 136,
+        "oldContent": "ModelBuilder model = new ModelBuilder();\n\t\tmodel.addStates(1, 2, 3)\n\t\t\t .addTransition(1, 2)\n\t\t\t .addTransition(2, 3)",
+        "newContent": "ModelBuilder model = new ModelBuilder();\n\t\tmodel.getModelData().addStates(1, 2, 3)\n\t\t\t .addTransition(1, 2)\n\t\t\t .addTransition(2, 3)"
+      },
+      {
+        "fromLine": 149,
+        "toLine": 159,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 175,
+        "toLine": 185,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 204,
+        "toLine": 214,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 237,
+        "toLine": 247,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 270,
+        "toLine": 280,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 297,
+        "toLine": 307,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 324,
+        "toLine": 334,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 349,
+        "toLine": 359,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 440,
+        "toLine": 451,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      },
+      {
+        "fromLine": 468,
+        "toLine": 478,
+        "oldContent": "...",
+        "newContent": "... (similar changes applied as previous)"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "spoon/smpl/ModelData.java": "public class ModelData<S, L> {\n\n\tprivate List<S> states;\n\tprivate Map<S, List<S>> successors;\n\tprivate Map<S, List<L>> labels;\n\n\tpublic ModelData() {\n\t\tstates = new ArrayList<>();\n\t\tsuccessors = new HashMap<>();\n\t\tlabels = new HashMap<>();\n\t}\n\n\tpublic void addState(S state) {\n\t\tstates.add(state);\n\t\tsuccessors.put(state, new ArrayList<>());\n\t\tlabels.put(state, new ArrayList<>());\n\t}\n\n\tpublic List<S> getStates() {\n\t\treturn states;\n\t}\n\n\tpublic List<S> getSuccessors(S state) {\n\t\treturn successors.get(state);\n\t}\n\n\tpublic List<L> getLabels(S state) {\n\t\treturn labels.get(state);\n\t}\n\n\tpublic void addTransition(S from, S to) {\n\t\tsuccessors.get(from).add(to);\n\t}\n\n\tpublic void addLabel(S state, L label) {\n\t\tlabels.get(state).add(label);\n\t}\n}"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T13:43:34.375Z"
+}

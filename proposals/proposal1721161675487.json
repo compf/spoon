@@ -1,0 +1,68 @@
+{
+  "refactorings": {
+    "src/main/java/spoon/reflect/visitor/ElementPrinterHelper.java": [
+      {
+        "fromLine": 504,
+        "toLine": 533,
+        "oldContent": "\tprivate ListPrinter createListPrinter(boolean startPrefixSpace, String start, boolean startSufficSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {\n\t\treturn new ListPrinter(printer, startPrefixSpace, start, startSufficSpace, nextPrefixSpace, next, nextSuffixSpace, endPrefixSpace, end);\n\t}",
+        "newContent": "\tprivate ListPrinter createListPrinter(PrinterConfiguration config) {\n\t\treturn new ListPrinter(printer, config);\n\t}"
+      },
+      {
+        "fromLine": 550,
+        "toLine": 580,
+        "oldContent": "\tpublic <T> void printList(Iterable<T> iterable,\n\t\t\tString startKeyword,\n\t\t\tboolean startPrefixSpace, String start, boolean startSuffixSpace,\n\t\t\tboolean nextPrefixSpace, String next, boolean nextSuffixSpace,\n\t\t\tboolean endPrefixSpace, String end,\n\t\t\tConsumer<T> elementPrinter) {",
+        "newContent": "\tpublic <T> void printList(Iterable<T> iterable,\n\t\t\tString startKeyword,\n\t\t\tPrinterConfiguration config,\n\t\t\tConsumer<T> elementPrinter) {"
+      },
+      {
+        "fromLine": 87,
+        "toLine": 99,
+        "oldContent": "\t\t// write the modifiers according to the convention on order\n\t\tList<String> firstPosition = new ArrayList<>(); // visibility: public, private, protected\n\t\tList<String> secondPosition = newтыане ArrayList<>(); // keywords: static, abstract\n\t\tList<String> thirdPosition = new ArrayList<>(); // all other things",
+        "newContent": "\t\t// write the modifiers according to the convention on order\n\t\tModifierPositions modifierPositions = new ModifierPositions();"
+      }
+    ],
+    "src/test/java/spoon/test/template/testclasses/replace/ElementPrinterHelper.java": [
+      {
+        "fromLine": 0,
+        "toLine": 9,
+        "oldContent": "\tpublic ListPrinter createListPrinter(boolean startPrefixSpace, String start, boolean startSufficSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {\n\t\treturn null;\n\t}",
+        "newContent": "\tpublic ListPrinter createListPrinter(PrinterConfiguration config) {\n\t\treturn null;\n\t}"
+      }
+    ],
+    "src/test/java/spoon/test/template/testclasses/replace/NewPattern.java": [
+      {
+        "fromLine": 16,
+        "toLine": 30,
+        "oldContent": "\tprivate void patternModel(OldPattern.Parameters params) throws Exception {\r\n\t\telementPrinterHelper.printList(params.getIterable.S(), \r\n\t\t\t\tparams.startPrefixSpace, \r\n\t\t\t\tparams.start, \r\n\t\t\t\tparams.startSuffixSpace, \r\n\t\t\t\tparams.nextPrefixSpace, \r\n\t\t\t\tparams.next, \r\n\t\t\t\tparams.nextSuffixSpace, \r\n\t\t\t\tparams.endPrefixSpace, \r\n\t\t\t\tparams.end,\r\n\t\t\t\tv -> {\r\n\t\t\t\t\tparams.statements.S();\r\n\t\t\t\t});\r\n\t}",
+        "newContent": "\tprivate void patternModel(OldPattern.Parameters params) throws Exception {\r\n\t\tPrinterConfiguration config = new PrinterConfiguration(params.startPrefixSpace, params.start, params.startSuffixSpace, params.nextPrefixSpace, params.next, params.nextSuffixSpace, params.endPrefixSpace, params.end);\r\n\t\telementPrinterHelper.printList(params.getIterable.S(), \r\n\t\t\t\tconfig,\r\n\t\t\t\tv -> {\r\n\t\t\t\t\tparams.statements.S();\r\n\t\t\t\t});\r\n\t}"
+      },
+      {
+        "fromLine": 52,
+        "toLine": 62,
+        "oldContent": "\tinterface ElementPrinterHelper {\r\n\t\tvoid printList(Iterable<Item> $getItems$, \r\n\t\t\t\tboolean startPrefixSpace, String start, boolean startSufficSpace, \r\n\t\t\t\tboolean nextPrefixSpace, String next, boolean nextSuffixSpace, \r\n\t\t\t\tboolean endPrefixSpace, String end, \r\n\t\t\t\tConsumer<Item> consumer);\r\n\t}",
+        "newContent": "\tinterface ElementPrinterHelper {\r\n\t\tvoid printList(Iterable<Item> $getItems$, \r\n\t\t\t\tPrinterConfiguration config,\r\n\t\t\t\tConsumer<Item> consumer);\r\n\t}"
+      }
+    ],
+    "src/main/java/spoon/reflect/visitor/ListPrinter.java": [
+      {
+        "fromLine": 8,
+        "toLine": 39,
+        "oldContent": "\tpublic ListPrinter(TokenWriter printerHelper, boolean startPrefixSpace, String start, boolean startSuffixSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {",
+        "newContent": "\tpublic ListPrinter(TokenWriter printerHelper, PrinterConfiguration config) {"
+      }
+    ],
+    "src/test/java/spoon/test/template/testclasses/replace/OldPattern.java": [
+      {
+        "fromLine": 41,
+        "toLine": 55,
+        "oldContent": "\t\ttry (spoon.reflect.visitor.ListPrinter lp = elementPrinterHelper.createListPrinter(\r\n\t\t\t\tparams.startPrefixSpace, \r\n\t\t\t\tparams.start, \r\n\t\t\t\tparams.startSuffixSpace, \r\n\t\t\t\tparams.nextPrefixSpace, \r\n\t\t\t\tparams.next, \r\n\t\t\t\tparams.nextSuffixSpace, \r\n\t\t\t\tparams.endPrefixSpace, \r\n\t\t\t\tparams.end\r\n\t\t\t)) {",
+        "newContent": "\t\tPrinterConfiguration config = new PrinterConfiguration(params.startPrefixSpace, params.start, params.startSuffixSpace, params.nextPrefixSpace, params.next, params.nextSuffixSpace, params.endPrefixSpace, params.end);\n\t\ttry (spoon.reflect.visitor.ListPrinter lp = elementPrinterHelper.createListPrinter(config)) {"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "src/main/java/spoon/reflect/visitor/PrinterConfiguration.java": "public class PrinterConfiguration {\n\n\tprivate final boolean startPrefixSpace;\n\tprivate final String start;\n\tprivate final boolean startSuffixSpace;\n\tprivate final boolean nextPrefixSpace;\n\tprivate final String next;\n\tprivate final boolean nextSuffixSpace;\n\tprivate final boolean endPrefixSpace;\n\tprivate final String end;\n\n\tpublic PrinterConfiguration(boolean startPrefixSpace, String start, boolean startSuffixSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {\n\t\tthis.startPrefixSpace = startPrefixSpace;\n\t\tthis.start = start;\n\t\tthis.startSuffixSpace = startSuffixSpace;\n\t\tthis.nextPrefixSpace = nextPrefixSpace;\n\t\tthis.next = next;\n\t\tthis.nextSuffixSpace = nextSuffixSpace;\n\t\tthis.endPrefixSpace = endPrefixSpace;\n\t\tthis.end = end;\n\t}\n\n\tpublic boolean isStartPrefixSpace() {\n\t\treturn startPrefixSpace;\n\t}\n\n\tpublic String getStart() {\n\t\treturn start;\n\t}\n\n\tpublic boolean isStartSuffixSpace() {\n\t\treturn startSuffixSpace;\n\t}\n\n\tpublic boolean isNextPrefixSpace() {\n\t\treturn nextPrefixSpace;\n\t}\n\n\tpublic String getNext() {\n\t\treturn next;\n\t}\n\n\tpublic boolean isNextSuffixSpace() {\n\t\treturn nextSuffixSpace;\n\t}\n\n\tpublic boolean isEndPrefixSpace() {\n\t\treturn endPrefixSpace;\n\t}\n\n\tpublic String getEnd() {\n\t\treturn end;\n\t}\n}\n",
+    "src/main/java/spoon/reflect/visitor/ModifierPositions.java": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class ModifierPositions {\n\n\tprivate final List<String> firstPosition;\n\tprivate final List<String> secondPosition;\n\tprivate final List<String> thirdPosition;\n\n\tpublic ModifierPositions() {\n\t\tfirstPosition = new ArrayList<>(); // visibility: public, private, protected\n\t\tsecondPosition = new ArrayList<>(); // keywords: static, abstract\n\t\tthirdPosition = new ArrayList<>(); // all other things\n\t}\n\n\tpublic List<String> getFirstPosition() {\n\t\treturn firstPosition;\n\t}\n\n\tpublic List<String> getSecondPosition() {\n\t\treturn secondPosition;\n\t}\n\n\tpublic List<String> getThirdPosition() {\n\t\treturn thirdPosition;\n\t}\n}\n"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T20:27:55.473Z"
+}

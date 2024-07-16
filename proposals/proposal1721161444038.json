@@ -1,0 +1,67 @@
+{
+  "refactorings": {
+    "src/main/java/spoon/reflect/visitor/ElementPrinterHelper.java": [
+      {
+        "fromLine": 504,
+        "toLine": 533,
+        "oldContent": "\tprivate ListPrinter createListPrinter(boolean startPrefixSpace, String start, boolean startSufficSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {\n\t\treturn new ListPrinter(printer, startPrefixSpace, start, startSufficSpace, nextPrefixSpace, next, nextSuffixSpace, endPrefixSpace, end);\n\t}",
+        "newContent": "\tprivate ListPrinter createListPrinter(ListPrinterConfig config) {\n\t\treturn new ListPrinter(printer, config);\n\t}"
+      },
+      {
+        "fromLine": 550,
+        "toLine": 580,
+        "oldContent": "\tpublic <T> void printList(Iterable<T> iterable,\n\t\t\tString startKeyword,\n\t\t\tboolean startPrefixSpace, String start, boolean startSuffixSpace,\n\t\t\tboolean nextPrefixSpace, String next, boolean nextSuffixSpace,\n\t\t\tboolean endPrefixSpace, String end,\n\t\t\tConsumer<T> elementPrinter) {",
+        "newContent": "\tpublic <T> void printList(Iterable<T> iterable,\n\t\t\tString startKeyword,\n\t\t\tListPrinterConfig config,\n\t\t\tConsumer<T> elementPrinter) {"
+      }
+    ],
+    "src/test/java/spoon/test/template/testclasses/replace/ElementPrinterHelper.java": [
+      {
+        "fromLine": 0,
+        "toLine": 9,
+        "oldContent": "\tpublic ListPrinter createListPrinter(boolean startPrefixSpace, String start, boolean startSufficSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixInner methods, including the constructor, to take `ListPrinterConfig` as a parameter, and throughout the rest of the codebase, all calls to these methods should now pass the `ListPrinterConfig` object rather than individual configuration values.ace, String end) {\n\t\treturn null;\n\t}",
+        "newContent": "\tpublic ListPrinter createListPrinter(ListPrinterConfig config) {\n\t\treturn null;\n\t}"
+      }
+    ],
+    "src/test/java/spoon/test/template/testclasses/replace/NewPattern.java": [
+      {
+        "fromLine": 16,
+        "toLine": 30,
+        "oldContent": "\tprivate void patternModel(OldPattern.Parameters params) throws Exception {\r\n\t\telementPrinterHelper.printList(params.getIterable.S(), \r\n\t\t\t\tparams.startPrefixSpace, \r\n\t\t\t\tparams.start, \r\n\t\t\t\tparams.startSuffixSpace, \r\n\t\t\t\tparams.nextPrefixSpace, \r\n\t\t\t\tparams.next, \r\n\t\t\t\tparams.nextSuffixSpace, \r\n\t\t\t\tparams.endPrefixSpace, \r\n\t\t\t\tparams.end,\r\n\t\t\t\tv -> {\r\n\t\t\t\t\tparams.statements.S();\r\n\t\t\t\t});\r\n\t}",
+        "newContent": "\tprivate void patternModel(OldPattern.Parameters params) throws Exception {\r\n\t\tListPrinterConfig config = new ListPrinterConfig(params.startPrefixSpace, params.start, params.startSuffixSpace, params.nextPrefixSpace, params.next, params.nextSuffixSpace, params.endPrefixSpace, params.end);\r\n\t\telementPrinterHelper.printList(params.getIterable.S(), params.startKeyword, config, v -> {\r\n\t\t\tparams.statements.S();\r\n\t\t});\r\n\t}"
+      },
+      {
+        "fromLine": 52,
+        "toLine": 62,
+        "oldContent": "\tinterface ElementPrinterHelper {\r\n\t\tvoid printList(Iterable<Item> $getItems$, \r\n\t\t\t\tboolean startPrefixSpace, String start, boolean startSufficSpace, \r\n\t\t\t\tboolean nextPrefixSpace, String next, boolean nextSuffixSpace, \r\n\t\t\t\tboolean endPrefixSpace, String end, \r\n\t\t\t\tConsumer<Item> consumer);\r\n\t}",
+        "newContent": "\tinterface ElementPrinterHelper {\r\n\t\tvoid printList(Iterable<Item> $getItems$, \r\n\t\t\t\tListPrinterConfig config, \r\n\t\t\t\tConsumer<Item> consumer);\r\n\t}"
+      }
+    ],
+    "src/main/java/spoon/reflect/visitor/ListPrinter.java": [
+      {
+        "fromLine": 8,
+        "toLine": 39,
+        "oldContent": "\tpublic ListPrinter(TokenWriter printerHelper, boolean startPrefixSpace, String start, boolean startSuffixSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {",
+        "newContent": "\tpublic ListPrinter(TokenWriter printerHelper, ListPrinterConfig config) {"
+      },
+      {
+        "fromLine": 55,
+        "toLine": 82,
+        "oldContent": "",
+        "newContent": ""
+      }
+    ],
+    "src/test/java/spoon/test/template/testclasses/replace/OldPattern.java": [
+      {
+        "fromLine": 41,
+        "toLine": 55,
+        "oldContent": "\t\ttry (spoon.reflect.visitor.ListPrinter lp = elementPrinterHelper.createListPrinter(\r\n\t\t\t\tparams.startPrefixSpace, \r\n\t\t\t\tparams.start, \r\n\t\t\t\tparams.startSuffixSpace, \r\n\t\t\t\tparams.nextPrefixSpace, \r\n\t\t\t\tparams.next, \r\n\t\t\t\tparams.nextSuffixSpace, \r\n\t\t\t\tparams.endPrefixSpace, \r\n\t\t\t\tparams.end\r\n\t\t\t)) {",
+        "newContent": "\t\tListPrinterConfig config = new ListPrinterConfig(params.startPrefixSpace, params.start, params.startSuffixSpace, params.nextPrefixSpace, params.next, params.nextSuffixSpace, params.endPrefixSpace, params.end);\r\n\t\ttry (spoon.reflect.visitor.ListPrinter lp = elementPrinterHelper.createListPrinter(config)) {"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "src/main/java/spoon/reflect/visitor/ListPrinterConfig.java": "package spoon.reflect.visitor;\n\npublic class ListPrinterConfig {\n\n\tpublic final boolean startPrefixSpace;\n\tpublic final String start;\n\tpublic final boolean startSuffixSpace;\n\tpublic final boolean nextPrefixSpace;\n\tpublic final String next;\n\tpublic final boolean nextSuffixspace;\n\tpublic final boolean endPrefixSpace;\n\tpublic final String end;\n\n\tpublic ListPrinterConfig(boolean startPrefixSpace, String start, boolean startSuffixSpace, boolean nextPrefixSpace, String next, boolean nextSuffixSpace, boolean endPrefixSpace, String end) {\n\t\tthis.startPrefixSpace = startPrefixSpace;\n\t\tthis.start = start;\n\t\tthis.startSuffixSpace = startSuffixSpace;\n\t\tthis.nextPrefixSpace = nextPrefixSpace;\n\t\tthis.next = next;\n\t\tthis.nextSuffixspace = nextSuffixSpace;\n\t\tthis.endPrefixSpace = endPrefixSpace;\n\t\tthis.end = end;\n\t}\n}\n"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T20:24:04.033Z"
+}

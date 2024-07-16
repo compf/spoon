@@ -1,0 +1,33 @@
+{
+  "refactorings": {
+    "spoon-smpl/src/main/java/spoon/smpl/CFGModel.java": [
+      {
+        "fromLine": 205,
+        "toLine": 222,
+        "oldContent": "\tprivate SmPLMethodCFG cfg;\n\n\t/**\n\t * The set of state IDs.\n\t */\n\tprivate List<Integer> states;\n\n\t/**\n\t * The set of immediate successors.\n\t */\n\tprivate Map<Integer, List<Integer>> successors;\n\n\t/**\n\t * The set of state labels.\n\t */\n\tprivate Map<Integer, List<Label>> labels;\n}\n",
+        "newContent": "\tprivate SmPLMethodCFG cfg;\n\tprivate CTLModel ctlModel;\n}\n"
+      }
+    ],
+    "spoon-smpl/src/main/java/spoon/smpl/MethodHeaderModel.java": [
+      {
+        "fromLine": 362,
+        "toLine": 382,
+        "oldContent": "\t}\n\n\t/**\n\t * States of the CTL model.\n\t */\n\tprivate List<Integer> states;\n\n\t/**\n\t * Successors of the CTL model.\n\t */\n\tprivate Map<Integer, List<Integer>> successors;\n\n\t/**\n\t * Labels of the CTL model.\n\t */\n\tprivate Map<Integer, List<Label>> labels;\n\n\t/**\n\t * Name of executable in wrapper invocation for encoding method return type.\n\t */\n\tprivate static final String methodReturnTypeElementName = \"__MethodHeaderReturnType__\";",
+        "newContent": "\t}\n\n\tprivate CTLModel ctlModel;\n\n\t/**\n\t * Name of executable in wrapper invocation for encoding method return type.\n\t */\n\tprivate static final String methodReturnTypeElementName = \"__MethodHeaderReturnType__\";"
+      }
+    ],
+    "spoon-smpl/src/test/java/spoon/smpl/ModelCheckerTest.java": [
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\tprivate static class ModelBuilder implements Model {\n\t\tpublic List<Integer> states;\n\t\tpublic Map<Integer, List<Integer>> successors;\n\t\tpublic Map<Integer, List<Label>> labels;\n\n\t\tpublic ModelBuilder() {\n\t\t\tstates = new ArrayList<Integer>();\n\t\t\tsuccessors = new HashMap<Integer, List<Integer>>();\n\t\t\tlabels = new HashMap<Integer, List<Label>>();\n\t\t}\n\n\t\tpublic ModelBuilder addStates(int... n) {\n\t\t\tfor (int nn : n) {\n\t\t\t\tstates.add(nn);\n\t\t\t\tsuccessors.put(nn, new ArrayList<Integer>());\n\t\t\t\tlabels.put(nn, new ArrayList<Label>());\n\t\t\t}\n\n\t\t\treturn this;\n\t\t}\n\n\t\tpublic ModelBuilder addTransition(int from, int to) {\n\t\t\tsuccessors.get(from).add(to);\n\t\t\treturn this;\n\t\t}\n\n\t\tpublic ModelBuilder addLabel(int state, Label label) {\n\t\t\tlabels.get(state).add(label);\n\t\t\treturn this;\n\t\t}\n\n\t\t@Override\n\t\tpublic List<Integer> getStates() {\n\t\t\treturn states;\n\t\t}\n\n\t\t@Override\n\t\tpublic List<Integer> getSuccessors(int state) {\n\t\t\treturn successors.get(state);\n\t\t}\n\n\t\t@Override\n\t\tpublic List<Label> getLabels(int state) {\n\t\t\treturn labels.get(state);\n\t\t}\n\t}\n\n\t@Test\n\tpublic void testTrue() {",
+        "newContent": "\tprivate static class ModelBuilder implements Model {\n\t\tprivate CTLModel ctlModel;\n\n\t\tpublic ModelBuilder() {\n\t\t\tctlModel = new CTLModel();\n\t\t}\n\n\t\tpublic ModelBuilder addStates(int... n) {\n\t\t\tfor (int nn : n) {\n\t\t\t\tctlModel.states.add(nn);\n\t\t\t\tctlModel.successors.put(nn, new ArrayList<Integer>());\n\t\t\t\tctlModel.labels.put(nn, new ArrayList<Label>());\n\t\t\t}\n\n\t\t\treturn this;\n\t\t}\n\n\t\tpublic ModelBuilder addTransition(int from, int to) {\n\t\t\tctlModel.successors.get(from).add(to);\n\t\t\treturn this;\n\t\t}\n\n\t\tpublic ModelBuilder addLabel(int state, Label label) {\n\t\t\tctlModel.labels.get(state).add(label);\n\t\t\treturn this;\n\t\t}\n\n\t\t@Override\n\t\tpublic List<Integer> getStates() {\n\t\t\treturn ctlModel.states;\n\t\t}\n\n\t\t@Override\n\t\tpublic List<Integer> getSuccessors(int state) {\n\t\t\treturn ctlModel.successors.get(state);\n\t\t}\n\n\t\t@Override\n\t\tpublic List<Label> getLabels(int state) {\n\t\t\treturn ctlModel.labels.get(state);\n\t\t}\n\t}\n\n\t@Test\n\tpublic void testTrue() {"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "CTLModel.java": "public class CTLModel {\n\n\t/**\n\t * The set of state IDs.\n\t */\n\tpublic List<Integer> states;\n\n\t/**\n\t * The set of immediate successors.\n\t */\n\tpublic Map<Integer, List<Integer>> successors;\n\n\t/**\n\t * The set of state labels.\n\t */\n\tpublic Map<Integer, List<Label>> labels;\n\n\tpublic CTLModel() {\n\t\tstates = new ArrayList<Integer>();\n\t\tsuccessors = new HashMap<Integer, List<Integer>>();\n\t\tlabels = new HashMap<Integer, List<Label>>();\n\t}\n}"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T12:38:46.674Z"
+}

@@ -1,0 +1,117 @@
+{
+  "refactorings": {
+    "spoon-smpl/src/main/java/spoon/smpl/CFGModel.java": [
+      {
+        "fromLine": 46,
+        "toLine": 118,
+        "oldContent": "public CFGModel(SmPLMethodCFG cfg) { ... }",
+        "newContent": "public CFGModel(ControlFlowWrapper controlFlowWrapper) {\n\t\tthis.cfg = controlFlowWrapper.getCfg();\n\t\tthis.states = controlFlowWrapper.getStates();\n\t\tthis.successors = controlFlowWrapper.getSuccessors();\n\t\tthis.labels = controlFlowWrapper.getLabels();\n\t}"
+      },
+      {
+        "fromLine": 123,
+        "toLine": 177,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 205,
+        "toLine": 222,
+        "oldContent": "private SmPLMethodCFG cfg; ...",
+        "newContent": "private ControlFlowWrapper controlFlowWrapper;\n}"
+      }
+    ],
+    "spoon-smpl/src/main/java/spoon/smpl/MethodHeaderModel.java": [
+      {
+        "fromLine": 80,
+        "toLine": 147,
+        "oldContent": "public MethodHeaderModel(CtExecutable<?> ctExecutable) { ... }",
+        "newContent": "public MethodHeaderModel(ControlFlowWrapper controlFlowWrapper) {\n\t\tthis.states = controlFlowWrapper.getStates();\n\t\tthis.successors = controlFlowWrapper.getSuccessors();\n\t\tthis.labels = controlFlowWrapper.getLabels();\n\t}"
+      },
+      {
+        "fromLine": 362,
+        "toLine": 382,
+        "oldContent": "private List<Integer> states; ...",
+        "newContent": "private ControlFlowWrapper controlFlowWrapper;\n}"
+      }
+    ],
+    "spoon-smpl/src/test/java/spoon/smpl/ModelCheckerTest.java": [
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "private static class ModelBuilder implements Model { ... }",
+        "newContent": "private static class ModelBuilder extends ControlFlowWrapper { ... }"
+      },
+      {
+        "fromLine": 126,
+        "toLine": 136,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 149,
+        "toLine": 159,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 175,
+        "toLine": 185,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 204,
+        "toLine": 214,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 237,
+        "toLine": 247,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 270,
+        "toLine": 280,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 297,
+        "toLine": 307,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 324,
+        "toLine": 334,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 349,
+        "toLine": 359,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 440,
+        "toLine": 451,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this file"
+      },
+      {
+        "fromLine": 468,
+        "toLine": 478,
+        "oldContent": "// unchanged, only method signature refactored in this file",
+        "newContent": "// unchanged, only method signature refactored in this  file"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "ControlFlowWrapper.java": "public class ControlFlowWrapper {\n\n\tprivate SmPLMethodCFG cfg;\n\tprivate List<Integer> states;\n\tprivate Map<Integer, List<Integer>> successors;\n\tprivate Map<Integer, List<Label>> labels;\n\n\tpublic ControlFlowWrapper(SmPLMethodCFG cfg) {\n\t\t// Logic to initialize states, successors, and labels based on cfg\n\t}\n\n\tpublic SmPLMethodCFG getCfg() {\n\t\treturn cfg;\n\t}\n\n\tpublic List<Integer> getStates() {\n\t\treturn states;\n\t}\n\n\tpublic Map<Integer, List<Integer>> getSuccessors() {\n\t\treturn successors;\n\t}\n\n\tpublic Map<Integer, List<Label>> getLabels() {\n\t\treturn labels;\n\t}\n\n\t// Additional methods, if necessary\n}"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T12:36:01.177Z"
+}

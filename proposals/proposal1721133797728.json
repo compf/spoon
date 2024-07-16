@@ -1,0 +1,61 @@
+{
+  "refactorings": {
+    "spoon-smpl/src/main/java/spoon/smpl/CFGModel.java": [],
+    "spoon-smpl/src/main/java/spoon/smpl/MethodHeaderModel.java": [],
+    "spoon-smpl/src/test/java/spoon/smpl/ModelCheckerTest.java": [
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "private static class ModelBuilder implements Model {\n\t\tpublic List<Integer> states;\n\t\tpublic Map<Integer, List<Integer>> successors;\n\t\tpublic Map<Integer, List<Label>> labels;",
+        "newContent": "private static class ModelBuilder implements Model {\n\t\tpublic GraphModel graphModel;"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\tpublic ModelBuilder() {\n\t\t\t\tstates = new ArrayList<Integer>();\n\t\t\t\tsuccessors = new HashMap<Integer, List<Integer>>();\n\t\t\t\tlabels = new HashMap<Integer, List<Label>>();\n\t\t\t}",
+        "newContent": "\n\t\t\tpublic ModelBuilder() {\n\t\t\t\tgraphModel = new GraphModel();\n\t\t\t}"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\tpublic ModelBuilder addStates(int... n) {\n\t\t\t\tfor (int nn : n) {\n\t\t\t\t\tstates.add(nn);\n\t\t\t\t\tsuccessors.put(nn, new ArrayList<Integer>());\n\t\t\t\t\tlabels.put(nn, new ArrayList<Label>());\n\t\t\t\t}\n\t\t\t\treturn this;\n\t\t\t}",
+        "newContent": "\n\t\t\tpublic ModelBuilder addStates(int... n) {\n\t\t\t\tfor (int nn : n) {\n\t\t\t\t\tgraphModel.addState(nn);\n\t\t\t\t}\n\t\t\t\treturn this;\n\t\t\t}"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\tpublic ModelBuilder addTransition(int from, int to) {\n\t\t\t\tsuccessors.get(from).add(to);\n\t\t\t\treturn this;\n\t\t\t}",
+        "newContent": "\n\t\t\tpublic ModelBuilder addTransition(int from, int to) {\n\t\t\t\tgraphModel.addTransition(from, to);\n\t\t\t\treturn this;\n\t\t\t}"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\tpublic ModelBuilder addLabel(int state, Label label) {\n\t\t\t\tlabels.get(state).add(label);\n\t\t\t\treturn this;\n\t\t\t}",
+        "newContent": "\n\t\t\tpublic ModelBuilder addLabel(int state, Label label) {\n\t\t\t\tgraphModel.addLabel(state, label);\n\t\t\t\treturn this;\n\t\t\t}"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\t@Override\n\t\t\tpublic List<Integer> getStates() {\n\t\t\t\treturn states;\n\t\t\t}",
+        "newContent": "\n\t\t\t@Override\n\t\t\tpublic List<Integer> getStates() {\n\t\t\t\treturn graphModel.getStates();\n\t\t\t}"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\t@Override\n\t\t\tpublic List<Integer> getSuccessors(int state) {\n\t\t\t\treturn successors.get(state);\n\t\t\t}",
+        "newContent": "\n\t\t\t@Override\n\t\t\tpublic List<Integer> getSuccessors(int state) {\n\t\t\t\treturn graphModel.getSuccessors(state);\n\t\t\t}"
+      },
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "\n\t\t\t@Override\n\t\t\tpublic List<Label> getLabels(int state) {\n\t\t\t\treturn labels.get(state);\n\t\t\t}",
+        "newContent": "\n\t\t\t@Override\n\t\t\tpublic List<Label> getLabels(int state) {\n\t\t\t\treturn graphModel.getLabels(state);\n\t\t\t}"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "spoon-smpl/src/test/java/spoon/smpl/GraphModel.java": "public class GraphModel {\n\n\tprivate List<Integer> states;\n\tprivate Map<Integer, List<Integer>> successors;\n\tprivate Map<Integer, List<Label>> labels;\n\n\tpublic GraphModel() {\n\t\tstates = new ArrayList<>();\n\t\tsuccessors = new HashMap<>();\n\t\tlabels = new HashMap<>();\n\t}\n\n\tpublic void addState(int state) {\n\t\tstates.add(state);\n\t\tsuccessors.put(state, new ArrayList<>());\n\t\tlabels.put(state, new ArrayList<>());\n\t}\n\n\tpublic void addTransition(int from, int to) {\n\t\tsuccessors.get(from).add(to);\n\t}\n\n\tpublic void addLabel(int state, Label label) {\n\t\tlabels.get(state).add(label);\n\t}\n\n\tpublic List<Integer> getStates() {\n\t\treturn states;\n\t}\n\n\tpublic List<Integer> getSuccessors(int state) {\n\t\treturn successors.get(state);\n\t}\n\n\tpublic List<Label> getLabels(int state) {\n\t\treturn labels.get(state);\n\t}\n\n}\n"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T12:43:17.706Z"
+}

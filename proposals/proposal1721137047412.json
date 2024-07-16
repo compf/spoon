@@ -1,0 +1,117 @@
+{
+  "refactorings": {
+    "spoon-smpl/src/main/java/spoon/smpl/CFGModel.java": [
+      {
+        "fromLine": 46,
+        "toLine": 118,
+        "oldContent": "<content>",
+        "newContent": "this.modelData = new ModelData(cfg);"
+      },
+      {
+        "fromLine": 123,
+        "toLine": 177,
+        "oldContent": "<content>",
+        "newContent": "public List<Integer> getStates() {\n\t\treturn modelData.getStates();\n\t}\n\n\tpublic List<Integer> getSuccessors(int state) {\n\t\treturn modelData.getSuccessors(state);\n\t}\n\n\tpublic List<Label> getLabels(int state) {\n\t\treturn modelData.getLabels(state);\n\t}"
+      },
+      {
+        "fromLine": 205,
+        "toLine": 222,
+        "oldContent": "<content>",
+        "newContent": "private ModelData modelData;"
+      }
+    ],
+    "spoon-smpl/src/main/java/spoon/smpl/MethodHeaderModel.java": [
+      {
+        "fromLine": 80,
+        "toLine": 147,
+        "oldContent": "<content>",
+        "newContent": "this.modelData = new ModelData(ctExecutable);"
+      },
+      {
+        "fromLine": 362,
+        "toLine": 382,
+        "oldContent": "<content>",
+        "newContent": "private ModelData modelData;"
+      }
+    ],
+    "spoon-smpl/src/test/java/spoon/smpl/ModelCheckerTest.java": [
+      {
+        "fromLine": 35,
+        "toLine": 87,
+        "oldContent": "<content>",
+        "newContent": "private ModelData modelData;\n\n\tpublic ModelBuilder() {\n\t\t\tthis.modelData = new ModelData();\n\t\t}\n\n\t\t// rest of the methods would use modelData to access states, successors, and labels"
+      },
+      {
+        "fromLine": 126,
+        "toLine": 136,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3).addTransition(1, 2).addTransition(2, 3);"
+      },
+      {
+        "fromLine": 149,
+        "toLine": 159,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3).addTransition(1, 2).addTransition(2, 3);"
+      },
+      {
+        "fromLine": 175,
+        "toLine": 185,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3).addTransition(1, 2).addTransition(2, 3);"
+      },
+      {
+        "fromLine": 204,
+        "toLine": 214,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3, 4, 5).addTransition(1, 2).addTransition(1, 3);"
+      },
+      {
+        "fromLine": 237,
+        "toLine": 247,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3, 4, 5).addTransition(1, 2).addTransition(1, 3);"
+      },
+      {
+        "fromLine": 270,
+        "toLine": 280,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3, 4, 5).addTransition(1, 2).addTransition(1, 5);"
+      },
+      {
+        "fromLine": 297,
+        "toLine": 307,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3, 4, 5).addTransition(1, 2).addTransition(1, 5);"
+      },
+      {
+        "fromLine": 324,
+        "toLine": 334,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3, 4, 5, 6).addTransition(1, 2).addTransition(1, 4);"
+      },
+      {
+        "fromLine": 349,
+        "toLine": 359,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3, 4, 5, 6).addTransition(1, 2).addTransition(1, 4);"
+      },
+      {
+        "fromLine": 440,
+        "toLine": 451,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3).addTransition(1, 2).addTransition(1, 3);"
+      },
+      {
+        "fromLine": 468,
+        "toLine": 478,
+        "oldContent": "<content>",
+        "newContent": "ModelBuilder model = new ModelBuilder().addStates(1, 2, 3).addTransition(1, 2).addTransition(1, 3);"
+      }
+    ]
+  },
+  "extractedClasses": {
+    "spoon-smpl/src/main/java/spoon/smpl/ModelData.java": "public class ModelData {\n\n\tprivate List<Integer> states;\n\tprivate Map<Integer, List<Integer>> successors;\n\tprivate Map<Integer, List<Label>> labels;\n\n\tpublic ModelData() {\n\t\tstates = new ArrayList<Integer>();\n\t\tsuccessors = new HashMap<Integer, List<Integer>>();\n\t\tlabels = new HashMap<Integer, List<Label>>();\n\t}\n\n\tpublic ModelData(SmPLMethodCFG cfg) {\n\t\t// Constructor refactored from CFGModel\n\t\t... // original code from CFGModel constructor\n\t}\n\n\tpublic ModelData(CtExecutable<?> ctExecutable) {\n\t\t// Constructor refactored from MethodHeaderModel\n\t\t... // original code from MethodHeaderModel constructor\n\t}\n\n\tpublic List<Integer> getStates() {\n\t\treturn states;\n\t}\n\n\tpublic List<Integer> getSuccessors(int state) {\n\t\treturn successors.get(state);\n\t}\n\n\tpublic List<Label> getLabels(int state) {\n\t\treturn labels.get(state);\n\t}\n\n\t// Other methods can be added later\n}"
+  },
+  "tenperature": 0.9,
+  "date": "2024-07-16T13:37:27.373Z"
+}
