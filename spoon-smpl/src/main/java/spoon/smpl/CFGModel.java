@@ -203,20 +203,5 @@ public class CFGModel implements Model {
 	/**
 	 * The SmPL-adapted CFG used to generate the model.
 	 */
-	private SmPLMethodCFG cfg;
-
-	/**
-	 * The set of state IDs.
-	 */
-	private List<Integer> states;
-
-	/**
-	 * The set of immediate successors.
-	 */
-	private Map<Integer, List<Integer>> successors;
-
-	/**
-	 * The set of state labels.
-	 */
-	private Map<Integer, List<Label>> labels;
+	private StateInfo stateInfo;
 }

@@ -362,20 +362,7 @@ public class MethodHeaderModel implements Model {
 				&& ((CtInvocation<?>) e).getExecutable().getSimpleName().equals(name);
 	}
 
-	/**
-	 * States of the CTL model.
-	 */
-	private List<Integer> states;
-
-	/**
-	 * Successors of the CTL model.
-	 */
-	private Map<Integer, List<Integer>> successors;
-
-	/**
-	 * Labels of the CTL model.
-	 */
-	private Map<Integer, List<Label>> labels;
+	private StateInfo stateInfo;
 
 	/**
 	 * Name of executable in wrapper invocation for encoding method return type.

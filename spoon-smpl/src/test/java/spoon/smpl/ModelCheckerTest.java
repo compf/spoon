@@ -38,10 +38,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 public class ModelCheckerTest {
 	private static class ModelBuilder implements Model {
-		public List<Integer> states;
-		public Map<Integer, List<Integer>> successors;
-		public Map<Integer, List<Label>> labels;
+		private StateInfo stateInfo;
 
+		public ModelBuilder() {
+			stateInfo = new StateInfo();
 		public ModelBuilder() {
 			states = new ArrayList<Integer>();
 			successors = new HashMap<Integer, List<Integer>>();
